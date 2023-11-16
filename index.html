@@ -4,12 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>App Tempo</title>
 </head>
 <body>
-    <div class="container">
+    <header class="header">
         <h1 class="title">App Tempo</h1>
-    </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="info">
+                <div class="info__left">
+                    <span class="city">Curitiba</span>
+                    <span class="date">16 de novembro de 2023</span>
+                    <img src="./imagens/clear_day.svg" alt="icone do tempo">
+                </div>
+                <div class="info__right">
+                    <span class="temperature">20°</span>
+                    <span class="min-max">12°/25°</span>                    
+                </div>
+            </div>
+            <nav class="menu">
+                <div>
+                    <button>Hoje</button>
+                    <img src="./imagens/clear_day.svg" alt="icone do tempo">      
+                </div>
+                <div>
+                    <button>Amanhã</button>
+                    <img src="./imagens/clear_day.svg" alt="icone do tempo">      
+                </div>
+                <div>
+                    <button class="last">7 Dias</button>
+                    <img src="./imagens/clear_day.svg" alt="icone do tempo">      
+                </div>
+            </nav>
+        </div>
+    </main>
 
     <script src="app.js"></script>
 </body>
