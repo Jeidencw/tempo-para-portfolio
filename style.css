@@ -35,7 +35,7 @@ body {
     align-items: center;
     flex-direction: column;
     border-radius: 15px;
-    background-color: rgba(128, 128, 128, .4);
+    background-color: rgba(128, 128, 128, .6);
     padding: 40px;
 }
 
@@ -110,17 +110,16 @@ body {
     border: none;
     font-size: 18px;
     font-weight: 500;
-    color: white;
-    border-bottom: 1px solid white;
+    color: rgba(245, 245, 245, 0.8);
+    border-bottom: 2px solid rgba(245, 245, 245, 0.8);
     padding: 5px 0;
+    cursor: pointer;
+    transition: all ease .1s;
 }
 
-.menu button:first-child{
-    align-items: start;
-}
-
-.menu .last{
-    align-items: end;
+.menu .active{
+    color: white;
+    border-bottom: 3px solid white;
 }
 
 .menu div img {
