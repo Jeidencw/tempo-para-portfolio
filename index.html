@@ -18,63 +18,83 @@
     <main class="main">
         <div class="container">
             <div class="infos">
-                <div class="info__one-day active">
+                <div class="info__one-day">
                     <div class="info__left">
                         <span class="city">Curitiba</span>
-                        <span class="date">16 de novembro de 2023</span>
+                        <span class="weather__text">Ensolarado</span>
                         <img src="./imagens/clear_day.svg" alt="icone do tempo">
                     </div>
                     <div class="info__right">
                         <span class="temperature">20°</span>
-                        <span class="min-max">12°/25°</span>                    
+                        <p class="min-max"><span class="current__min">12</span>°/<span class="current__max">25</span>°</p>                    
                     </div>
                 </div>
 
-                <div class="info__five-days">
-                    <span class="city">Curitiba</span>
-                    <div class="all__temps">
-                        <div class="daily day__one">
-                            <span>16/11</span>
-                            <span class="min-max">12°/25°</span>
-                            <img src="./imagens/clear_day.svg" alt="icone do tempo">  
-                        </div>
-                        <div class="daily day__two">
-                            <span>17/11</span>
-                            <span class="min-max">12°/25°</span>
-                            <img src="./imagens/clear_day.svg" alt="icone do tempo">  
-                        </div>
-                        <div class="daily day__three">
-                            <span>18/11</span>
-                            <span class="min-max">12°/25°</span>
-                            <img src="./imagens/clear_day.svg" alt="icone do tempo">  
-                        </div>
-                        <div class="daily day__four">
-                            <span>19/11</span>
-                            <span class="min-max">12°/25°</span>
-                            <img src="./imagens/clear_day.svg" alt="icone do tempo">  
-                        </div>
-                        <div class="daily day__five">
-                            <span>20/11</span>
-                            <span class="min-max">12°/25°</span>
-                            <img src="./imagens/clear_day.svg" alt="icone do tempo">  
-                        </div>
+                <div class="info__five-temps">
+                    <div class="daily temp__one">
+                        <span class="date__five-days">16/11</span>
+                        <p class="min-max"><span class="date__min">12</span>°/<span class="date__max">25</span>°</p>          
+                        <img src="./imagens/clear_day.svg" alt="icone do tempo">  
+                    </div>
+                    <div class="daily temp__two">
+                        <span class="date__five-days">17/11</span>
+                        <p class="min-max"><span class="date__min">12</span>°/<span class="date__max">25</span>°</p>          
+                        <img src="./imagens/clear_day.svg" alt="icone do tempo">  
+                    </div>
+                    <div class="daily temp__three">
+                        <span class="date__five-days">18/11</span>
+                        <p class="min-max"><span class="date__min">12</span>°/<span class="date__max">25</span>°</p>          
+                        <img src="./imagens/clear_day.svg" alt="icone do tempo">  
+                    </div>
+                    <div class="daily temp__four">
+                        <span class="date__five-days">19/11</span>
+                        <p class="min-max"><span class="date__min">12</span>°/<span class="date__max">25</span>°</p>          
+                        <img src="./imagens/clear_day.svg" alt="icone do tempo">  
+                    </div>
+                    <div class="daily temp__five">
+                        <span class="date__five-days">20/11</span>
+                        <p class="min-max"><span class="date__min">12</span>°/<span class="date__max">25</span>°</p>          
+                        <img src="./imagens/clear_day.svg" alt="icone do tempo">  
+                    </div>
+                </div>
+
+                <div class="info__five-hours">
+                    <div class="daily temp__one">
+                        <span class="date__five-hours">18h</span>
+                        <span class="temp_hour">30°</span>          
+                        <img src="./imagens/clear_day.svg" alt="icone do tempo">  
+                    </div>
+                    <div class="daily temp__two">
+                        <span class="date__five-hours">19h</span>
+                        <span class="temp_hour">30°</span>     
+                        <img src="./imagens/clear_day.svg" alt="icone do tempo">  
+                    </div>
+                    <div class="daily temp__three">
+                        <span class="date__five-hours">20h</span>
+                        <span class="temp_hour">30°</span>     
+                        <img src="./imagens/clear_day.svg" alt="icone do tempo">  
+                    </div>
+                    <div class="daily temp__four">
+                        <span class="date__five-hours">21h</span>
+                        <span class="temp_hour">30°</span>     
+                        <img src="./imagens/clear_day.svg" alt="icone do tempo">  
+                    </div>
+                    <div class="daily temp__five">
+                        <span class="date__five-hours">22h</span>
+                        <span class="temp_hour">30°</span>     
+                        <img src="./imagens/clear_day.svg" alt="icone do tempo">  
                     </div>
                 </div>
             </div>
+
             <div class="menu">
                 <nav class="menu__buttons">
-                    <div>
-                        <button class="active btn__day">Hoje</button>
-                        <img class="menu__icon active__icon" src="./imagens/clear_day.svg" alt="icone do tempo">
-                    </div>      
-                    <div>
-                        <button class="btn__day">5 Dias</button>
-                        <img class="menu__icon" src="./imagens/clear_day.svg" alt="icone do tempo">   
-                    </div>   
+                    <button class="active btn__day">Hoje</button>
+                    <button class="btn__day">5 Dias</button>
                 </nav>
-
+    
                 <form class="menu__search">
-                    <input type="text" class="input__search" placeholder="Procurar...">               
+                    <input type="text" class="input__search" placeholder="Procurar..." required>               
                     <button class="btn__search">
                         <span class="material-symbols-outlined search__icon">
                             search
