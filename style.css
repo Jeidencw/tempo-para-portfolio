@@ -63,7 +63,7 @@ body {
     gap: 20px;
 }
 
-.info__right .temperature{
+.info__right .main__temperature {
     font-size: 80px;
 }
 
@@ -80,7 +80,6 @@ body {
 
 .info__one-day img{
     height: 60px;
-    width: 60px;
 }
 
 .city{
@@ -109,13 +108,11 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
     font-weight: 500;
 }
 
 .daily img {
     height: 40px;
-    width: 40px;
     margin-bottom: 5px;
 }
 
