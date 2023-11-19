@@ -11,8 +11,17 @@ const url12HoursForecast = cityKey => `http://dataservice.accuweather.com/foreca
 const urlImg = number => `https://developer.accuweather.com/sites/default/files/${String(number).padStart(2, '0')}-s.png`
 
 const fetchData = async url => {
-    const response = await fetch(url)
-    return await response.json()
+    try {
+        const response = await fetch(url)
+        
+        if(!response.ok){
+            throw new Error('Não foi possível obter os dados')
+        }
+
+        return response.json()
+    } catch ({ name, message }) {
+        alert(`${name}: ${message}`)
+    }
 }
 
 const showInfoLoop = (arr, info) => {
@@ -98,7 +107,7 @@ const getFiveHoursInfo = data12HoursForecast => {
     const fiveTemps = []
     const iconNumber = []
 
-    let hourAPI, data, hour, temp, phrases, icon
+    let hourAPI, data, hour, temp, icon
 
     for (let i = 0; i < 5; i++) {
         hourAPI = data12HoursForecast[i].DateTime
