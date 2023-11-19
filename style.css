@@ -6,6 +6,11 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    height: 100vh;
+
+    background-image: url('./imagens/day-bg-2.png');
+    background-repeat: none;
+    background-size: cover;
 }
 
 .header {
@@ -13,18 +18,16 @@ body {
     padding: 20px;
 }
 
-.main {
-    margin: auto;
-    width: 550px;
-    height: 600px;
+.title {
+    color: white;
+    font-size: 40px;
+    letter-spacing: 2px;
+}
+
+.main{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 15px;
-
-    background-image: url('./imagens/day-2.png');
-    background-repeat: none;
-    background-size: cover;
 }
 
 .container {
