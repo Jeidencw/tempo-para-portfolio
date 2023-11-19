@@ -3,10 +3,10 @@ const menuSearchEl = document.querySelector('.menu__search')
 
 const key = 'Os7J58DIMJQeT3AYMwe5ZCWZZ901Gpbl'
 
-const urlCity = city => `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${key}&q=${city}`
-const urlCurrentConditions = cityKey => `http://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${key}&language=pt-br`
-const urlFiveDaysForecast = cityKey => `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${key}&language=pt-br&metric=true`
-const url12HoursForecast = cityKey => `http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${cityKey}?apikey=${key}&language=pt-br&metric=true`
+const urlCity = city => `https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${key}&q=${city}`
+const urlCurrentConditions = cityKey => `https://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${key}&language=pt-br`
+const urlFiveDaysForecast = cityKey => `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${key}&language=pt-br&metric=true`
+const url12HoursForecast = cityKey => `https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${cityKey}?apikey=${key}&language=pt-br&metric=true`
 
 const urlImg = number => `https://developer.accuweather.com/sites/default/files/${String(number).padStart(2, '0')}-s.png`
 
