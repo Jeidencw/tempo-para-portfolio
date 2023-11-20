@@ -1,7 +1,7 @@
 const inputSearchEl = document.querySelector('.input__search')
 const menuSearchEl = document.querySelector('.menu__search')
 
-const key = 'HQABU0JMfALzAEtVAZJAZJPaqXxyrSFu'
+const key = 'wwGeux4g5aPDVuJm0N8UZ4Zj9YQDyRXI'
 
 const urlCity = city => `https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${key}&q=${city}`
 const urlCurrentConditions = cityKey => `https://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${key}&language=pt-br`
