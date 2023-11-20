@@ -1,7 +1,7 @@
 const inputSearchEl = document.querySelector('.input__search')
 const menuSearchEl = document.querySelector('.menu__search')
 
-const key = 'wwGeux4g5aPDVuJm0N8UZ4Zj9YQDyRXI'
+const key = '4nku4gcAXKK3UwDMfG1hd03f1fRsiDno'
 
 const urlCity = city => `https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${key}&q=${city}`
 const urlCurrentConditions = cityKey => `https://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${key}&language=pt-br`
@@ -143,7 +143,6 @@ const showFiveHours = (data12HoursForecast, cityTimeZone) => {
 
 
 const fetchAllDatas = async inputValue => {
-    
     const dataCity = await fetchData(urlCity(inputValue))
     const dataCurrentConditions = await fetchData(urlCurrentConditions(dataCity[0].Key))
     const dataFiveDaysForecast = await fetchData(urlFiveDaysForecast(dataCity[0].Key))
@@ -165,8 +164,8 @@ const getCityFromCoords = () => {
 
                     const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
                     const data = await response.json()
-                    const city = data.address.town
-
+                    console.log(data);
+                    const city = data.address.municipality
                     resolve({ city })
                 },
                 error => {
