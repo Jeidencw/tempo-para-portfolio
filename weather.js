@@ -157,7 +157,7 @@ const fetchAllDatas = async inputValue => {
 
 const getCityFromCoords = () => {
     return new Promise((resolve, reject) => {
-        if ('geolocation' in navigator) {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 async position => {
                     const latitude = position.coords.latitude
