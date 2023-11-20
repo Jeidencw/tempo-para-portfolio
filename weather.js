@@ -123,7 +123,7 @@ const getFiveHoursInfo = (data12HoursForecast, cityTimeZone) => {
         icon = [data12HoursForecast[i].WeatherIcon, data12HoursForecast[i].IconPhrase]
 
         fiveHours.push(hour)
-        fiveTemps.push(temp)
+        fiveTemps.push(temp)    
         iconNumber.push(icon)
     }
     return { fiveHours, fiveTemps, iconNumber }
