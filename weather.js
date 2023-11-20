@@ -164,8 +164,10 @@ const getCityFromCoords = () => {
 
                     const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
                     const data = await response.json()
-                    const cityType = data.addresstype
-                    const city = data.address[cityType]
+                    
+                    const city = data.address.town
+
+                    console.log(data);
                     resolve({ city })
                 },
                 error => {
