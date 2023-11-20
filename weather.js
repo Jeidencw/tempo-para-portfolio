@@ -1,7 +1,7 @@
 const inputSearchEl = document.querySelector('.input__search')
 const menuSearchEl = document.querySelector('.menu__search')
 
-const key = 'Os7J58DIMJQeT3AYMwe5ZCWZZ901Gpbl'
+const key = 'A5xbCsZthqhfpmLUP0vlBs18WMcoxk9t'
 
 const urlCity = city => `https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${key}&q=${city}`
 const urlCurrentConditions = cityKey => `https://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${key}&language=pt-br`
@@ -26,7 +26,7 @@ const fetchData = async url => {
 
 const showInfoLoop = (arr, info) => {
     arr.forEach((element, index) => {
-        element.textContent = info[index];
+        element.textContent = info[index]
     })
 }
 
@@ -42,6 +42,7 @@ const showCurrentConditions = (dataCity, dataCurrentConditions, dataFiveDaysFore
     const currentMinEl = document.querySelector('.current__min')
     const currentMaxEl = document.querySelector('.current__max')
     const mainIcon = document.querySelector('.main__icon')
+    const body = document.querySelector('body')
 
     const cityName = dataCity[0].LocalizedName
     const currentTemperature = dataCurrentConditions[0].Temperature.Metric.Value
@@ -56,36 +57,39 @@ const showCurrentConditions = (dataCity, dataCurrentConditions, dataFiveDaysFore
     currentMinEl.textContent = min
     weatherTextEl.textContent = weatherText
     mainIcon.setAttribute('src', urlImg(weatherIcon))
+
+    if(dataCurrentConditions[0].IsDayTime){
+        body.style.backgroundImage = "url('./imagens/day-bg-2.png')"
+    }else{
+        body.style.backgroundImage = "url('./imagens/night-bg-2.png')"
+    }
 }
 
 const getFiveDaysInfo = dataFiveDaysForecast => {
-    const fiveDatas = []
     const fiveMin = []
     const fiveMax = []
+    const fiveDays = []
     const iconNumber = []
+    const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
+    let date = new Date()
 
-    let dataDaAPI, data, dia, mes, dataFormatada, min, max, iconDay, iconNight
+    let min, max, iconDay, iconNight, weekDay
 
     for (let i = 0; i < 5; i++) {
-        dataDaAPI = dataFiveDaysForecast.DailyForecasts[i].Date
-    
-        data = new Date(dataDaAPI)
-        dia = String(data.getDate()).padStart(2, '0')
-        mes = String(data.getMonth() + 1).padStart(2, '0')
-        dataFormatada = `${dia}/${mes}`
-
         iconDay = [dataFiveDaysForecast.DailyForecasts[i].Day.Icon, dataFiveDaysForecast.DailyForecasts[i].Day.IconPhrase]
         iconNight = [dataFiveDaysForecast.DailyForecasts[i].Night.Icon, dataFiveDaysForecast.DailyForecasts[i].Night.IconPhrase]
         min = Math.round(dataFiveDaysForecast.DailyForecasts[i].Temperature.Minimum.Value)
         max = Math.round(dataFiveDaysForecast.DailyForecasts[i].Temperature.Maximum.Value)
         
-        fiveDatas.push(dataFormatada)
+        fiveDays.push(weekDays[date.getDay()])
+        date.setDate(date.getDate() + 1)
+    
         fiveMin.push(min)
         fiveMax.push(max)
         iconNumber.push(iconDay[0] > iconNight[0] ? iconDay : iconNight)
     }
 
-    return { fiveDatas, fiveMin, fiveMax, iconNumber }
+    return { fiveMin, fiveMax, iconNumber, fiveDays }
 }
 
 const showFiveDays = dataFiveDaysForecast => {
@@ -94,25 +98,26 @@ const showFiveDays = dataFiveDaysForecast => {
     const dateMaxEl = document.querySelectorAll('.date__max')
     const iconDaily = document.querySelectorAll('.icon__daily')
   
-    const { fiveDatas, fiveMin, fiveMax, iconNumber } = getFiveDaysInfo(dataFiveDaysForecast)
+    const { fiveDays, fiveMin, fiveMax, iconNumber } = getFiveDaysInfo(dataFiveDaysForecast)
 
     showImgLoop(iconDaily, iconNumber)
-    showInfoLoop(dateElements, fiveDatas)
+    showInfoLoop(dateElements, fiveDays)
     showInfoLoop(dateMinEl, fiveMin)
     showInfoLoop(dateMaxEl, fiveMax)
 }
 
-const getFiveHoursInfo = data12HoursForecast => {
+const getFiveHoursInfo = (data12HoursForecast, cityTimeZone) => {
     const fiveHours = []
     const fiveTemps = []
     const iconNumber = []
 
-    let hourAPI, data, hour, temp, icon
+    let hourAPI, data, hour, temp, icon, localHour
 
     for (let i = 0; i < 5; i++) {
         hourAPI = data12HoursForecast[i].DateTime
         data = new Date(hourAPI)
-        hour = String(data.getHours()).padStart(2, '0')
+        localHour = data.toLocaleTimeString('pt-BR', { timeZone: cityTimeZone.Name })
+        hour = localHour.substr(0, 5)
 
         temp = Math.round(data12HoursForecast[i].Temperature.Value)
         icon = [data12HoursForecast[i].WeatherIcon, data12HoursForecast[i].IconPhrase]
@@ -124,58 +129,74 @@ const getFiveHoursInfo = data12HoursForecast => {
     return { fiveHours, fiveTemps, iconNumber }
 }
 
-const showFiveHours = data12HoursForecast => {
+const showFiveHours = (data12HoursForecast, cityTimeZone) => {
     const dateElements = document.querySelectorAll('.date__five-hours')
     const tempHourEl = document.querySelectorAll('.temp_hour')
     const iconHour = document.querySelectorAll('.icon_hour')
 
-    const { fiveHours, fiveTemps, iconNumber } = getFiveHoursInfo(data12HoursForecast)
+    const { fiveHours, fiveTemps, iconNumber } = getFiveHoursInfo(data12HoursForecast, cityTimeZone)
  
     showImgLoop(iconHour, iconNumber)
     showInfoLoop(dateElements, fiveHours)
     showInfoLoop(tempHourEl, fiveTemps)
 }
 
-const fazTudo = async e => {
-    e.preventDefault()
-    const inputValue = inputSearchEl.value.trim()
 
+const fetchAllDatas = async inputValue => {
+    
     const dataCity = await fetchData(urlCity(inputValue))
     const dataCurrentConditions = await fetchData(urlCurrentConditions(dataCity[0].Key))
     const dataFiveDaysForecast = await fetchData(urlFiveDaysForecast(dataCity[0].Key))
     const data12HoursForecast = await fetchData(url12HoursForecast(dataCity[0].Key))
+    const cityTimeZone = dataCity[0].TimeZone
 
     showFiveDays(dataFiveDaysForecast)
     showCurrentConditions(dataCity, dataCurrentConditions, dataFiveDaysForecast)
-    showFiveHours(data12HoursForecast)
+    showFiveHours(data12HoursForecast, cityTimeZone)
+}
+
+const getCityFromCoords = () => {
+    return new Promise((resolve, reject) => {
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                async position => {
+                    const latitude = position.coords.latitude
+                    const longitude = position.coords.longitude
+
+                    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
+                    const data = await response.json()
+                    const city = data.address.town
+
+                    resolve({ city })
+                },
+                error => {
+                    reject(error)
+                }
+            )
+        } else {
+            reject(new Error('Geolocation is not supported'))
+        }
+    })
+}
+
+const handleSubmit = async e => {
+    e.preventDefault()
+    const inputValue = inputSearchEl.value.trim()
+
+    await fetchAllDatas(inputValue)
 
     inputSearchEl.value = ''
 }
 
-menuSearchEl.addEventListener('submit', fazTudo)
+const onStart = () => {
+    getCityFromCoords()
+    .then(({ city }) => {
+        fetchAllDatas(city)
+    })
+    .catch(error => {
+        console.error(error)
+    })
+}
 
-
-// if ("geolocation" in navigator) {
-//     // Geolocalização está disponível
-//     navigator.geolocation.getCurrentPosition(function(position) {
-//       const latitude = position.coords.latitude;
-//       const longitude = position.coords.longitude;
-  
-//       // Aqui você pode usar essas coordenadas para fazer uma chamada a uma API de geolocalização, como a do OpenStreetMap ou outra API de geocodificação para obter a cidade
-//       // Exemplo de uso da API do OpenStreetMap para obter a cidade
-//       fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
-//         .then(response => response.json())
-//         .then(data => {
-//           const city = data.address.town;
-//           console.log("Cidade:", city);
-//           // Faça o que desejar com a informação da cidade, como exibi-la na página
-//         })
-//         .catch(error => {
-//           console.error("Erro ao buscar cidade:", error);
-//         });
-//     });
-//   } else {
-//     // Geolocalização não está disponível
-//     console.log("Geolocalização não está disponível");
-//   }
-  
+onStart()
+menuSearchEl.addEventListener('submit', handleSubmit)
