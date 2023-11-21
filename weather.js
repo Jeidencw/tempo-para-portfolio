@@ -1,7 +1,7 @@
 const inputSearchEl = document.querySelector('.input__search')
 const menuSearchEl = document.querySelector('.menu__search')
 
-const key = 'wwGeux4g5aPDVuJm0N8UZ4Zj9YQDyRXI'
+const key = 'vMKC7o4ewfFXAYRtAdQVCWwlEwpFSmkv'
 
 const urlCity = city => `https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${key}&q=${city}`
 const urlCurrentConditions = cityKey => `https://dataservice.accuweather.com/currentconditions/v1/${cityKey}?apikey=${key}&language=pt-br`
@@ -13,16 +13,23 @@ const urlImg = number => `https://developer.accuweather.com/sites/default/files/
 const fetchData = async url => {
     try {
         const response = await fetch(url)
-        
-        if(!response.ok){
+        const data = await response.json();
+
+        if (!response.ok) {
             throw new Error('Não foi possível obter os dados')
         }
 
-        return response.json()
-    } catch ({ name, message }) {
-        alert(`${name}: ${message}`)
+        return data;
+    } catch (err) {
+        if (err.name === 'TypeError' && err.message === 'Failed to fetch') {
+            alert('Erro ao buscar os dados. Verifique sua conexão de internet ou tente novamente mais tarde.');
+        } else {
+            console.error(err);
+            alert('Ocorreu um erro inesperado. Por favor, tente novamente.');
+        }
     }
 }
+
 
 const showInfoLoop = (arr, info) => {
     arr.forEach((element, index) => {
