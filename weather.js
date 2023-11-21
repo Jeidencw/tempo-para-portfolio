@@ -150,7 +150,6 @@ const showFiveHours = (data12HoursForecast, cityTimeZone) => {
 
 
 const fetchAllDatas = async inputValue => {
-    
     const dataCity = await fetchData(urlCity(inputValue))
     const dataCurrentConditions = await fetchData(urlCurrentConditions(dataCity[0].Key))
     const dataFiveDaysForecast = await fetchData(urlFiveDaysForecast(dataCity[0].Key))
@@ -172,8 +171,10 @@ const getCityFromCoords = () => {
 
                     const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
                     const data = await response.json()
+                    
                     const city = data.address.town
 
+                    console.log(data);
                     resolve({ city })
                 },
                 error => {
